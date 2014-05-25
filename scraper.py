@@ -37,7 +37,7 @@ def getBufferParcels(parcelID,distance):
         # get feature object based on parcel ID
         pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': {"wkid" : 2274}, 'returnGeometry': True}
-        r = requests.get(pageURL, params)
+        r = requests.get(pageURL, params=params)
         print r.text
     #except:
         print "error occurred"
