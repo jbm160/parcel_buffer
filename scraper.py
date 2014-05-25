@@ -39,7 +39,9 @@ def getBufferParcels(parcelID,distance):
         params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': {"wkid" : 2274}, 'returnGeometry': true}
         r = requests.get(pageURL, params)
         print r.text
-        
+    except:
+        print "error occurred"
+
 getBufferParcels("11714006400",250)      
       
 def getAppraisal(propID,parcelID):
