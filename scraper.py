@@ -30,13 +30,17 @@ import re
 import resource
 import xlrd
 import cookielib, urllib2
+import requests
 
 def getBufferParcels(parcelID,distance):
     try:
         # get feature object based on parcel ID
-        pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query?where=STANPAR='" + parcelID + "'&f=json"
-      
-      
+        pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
+        params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': {"wkid" : 2274}, 'returnGeometry': true}
+        r = requests.get(pageURL, params)
+        print r.text
+        
+getBufferParcels("11714006400",250)      
       
 def getAppraisal(propID,parcelID):
     try:
