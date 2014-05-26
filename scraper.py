@@ -68,9 +68,9 @@ def getParcelFeature(parcelID,distance):
         params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': spatialRef, 'returnGeometry': True}
         r = requests.get(pageURL, params=params)
         feat = json.loads(r)
-        if len(feat['features']) == 0
+        if len(feat['features']) == 0:
             print "No features were found"
-        else
+        else:
             getGeoBuffer(feat['features'][0]['geometry'],distance)
 #        print r.text
     #except:
