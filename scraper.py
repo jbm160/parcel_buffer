@@ -59,7 +59,7 @@ def getGeoBuffer(geom,dist):
         bparams['f'] = "json"
         buffURL = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer"
         r2 = requests.get(buffURL, params=bparams)
-        print r2.text
+        print "r2.text = " + r2.text
         buff = json.loads(r2.text)
         queryBuffer(buff[0])
 
@@ -74,6 +74,7 @@ def getParcelFeature(parcelID,distance):
         if len(feat['features']) == 0:
             print "No features were found"
         else:
+            print "feat['features'][0]['geometry'] = " + feat['features'][0]['geometry']
             getGeoBuffer(feat['features'][0]['geometry'],distance)
 #        print r.text
     #except:
