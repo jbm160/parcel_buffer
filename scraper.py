@@ -72,6 +72,7 @@ def getParcelFeature(parcelID,distance):
         params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': spatialRef, 'returnGeometry': True}
         r1 = requests.post(pageURL, data=json.dumps(params))
         print "r1.url = " + repr(r1.url)
+        print "r1.text = " + repr(r1.text)
         feat = r1.json()
         if len(feat['features']) == 0:
             print "No features were found"
