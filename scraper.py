@@ -36,7 +36,7 @@ import requests
 def queryBuffer(buff):
         qparams = {}
         qparams['f'] = "json"
-        qparams['geometry'] = json.dumps({'geometryType': "esriGeometryPolygon", 'geometries': [buff]})
+        qparams['geometry'] = json.dumps({'geometryType': "esriGeometryPolygon", 'geometry': buff})
         qparams['returnGeometry'] = True;
         qparams['outFields'] = json.dumps(["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP","LAND_USE","ACREAGE"])
         qparams['outSR'] = 2274
