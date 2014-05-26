@@ -50,7 +50,7 @@ def queryBuffer(buff):
 def getGeoBuffer(geom,dist):
         bparams = {}
 #        bparams['geometries'] = {'geometryType': "esriGeometryPolygon", 'geometries': geom}
-        bparams['geometries'] = urlencode(geom)
+        bparams['geometries'] = urllib.urlencode(geom)
         bparams['distances'] = dist
         #bparams['unit'] = "UNIT_FOOT"
         bparams['unit'] = 9002
