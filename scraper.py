@@ -52,7 +52,7 @@ def queryBuffer(buff):
 #        print "Number of parcels returned: " + r3.text
 #        print "r3.url = " + repr(r3.url)
         for i in features['features']:
-            print repr(i['attributes'])
+            scraperwiki.sqlite.save(unique_keys=["OBJECTID"],data=i['attributes'],table="properties")
 
 def getGeoBuffer(geom,dist):
         bparams = {}
