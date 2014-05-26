@@ -42,12 +42,12 @@ def queryBuffer(buff):
         qparams['outFields'] = json.dumps(["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP","LAND_USE","ACREAGE"])
         qparams['outSR'] = 2274
         qparams['returnCountOnly'] = True
-        print "qparams = " + repr(qparams)
+#        print "qparams = " + repr(qparams)
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         r3 = requests.post(queryURL, data=qparams)
 #        features = r3.json()
 #        print "Number of parcels returned: " + r3.text
-        print "r3.url = " + repr(r3.url)
+#        print "r3.url = " + repr(r3.url)
         print "r3.text = " + repr(r3.text)
 
 def getGeoBuffer(geom,dist):
@@ -66,14 +66,14 @@ def getGeoBuffer(geom,dist):
         print "bparams = " + json.dumps(bparams)
         buffURL = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer"
         r2 = requests.get(buffURL, params=bparams)
-        print "r2.url = " + repr(r2.url)
-        print "r2.text = " + repr(r2.text)
+#        print "r2.url = " + repr(r2.url)
+#        print "r2.text = " + repr(r2.text)
         buff = r2.json()
         queryBuffer(buff['geometries'][0])
 
 def getParcelFeature(parcelID,distance):
-        test = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer?f=json&unit=9002&unionResults=false&geodesic=false&geometries=%7B%22geometryType%22%3A%22esriGeometryPolygon%22%2C%22geometries%22%3A%5B%7B%22rings%22%3A%5B%5B%5B1728133.7991666645%2C646400.799999997%5D%2C%5B1728123.2450000048%2C646380%5D%2C%5B1728079.400000006%2C646293.599999994%5D%2C%5B1728075.900000006%2C646287.5%5D%2C%5B1728071.400000006%2C646282%5D%2C%5B1728066.200000003%2C646277.200000003%5D%2C%5B1728060.400000006%2C646273.200000003%5D%2C%5B1728054%2C646270.200000003%5D%2C%5B1728047.200000003%2C646268.099999994%5D%2C%5B1728040.200000003%2C646267.099999994%5D%2C%5B1728033.099999994%2C646267.099999994%5D%2C%5B1728026.099999994%2C646268.299999997%5D%2C%5B1728019.4008333385%2C646270.400000006%5D%2C%5B1728010.2991666645%2C646274.400000006%5D%2C%5B1728001.200000003%2C646278.299999997%5D%2C%5B1727991.900000006%2C646281.799999997%5D%2C%5B1727982.599999994%2C646285.200000003%5D%2C%5B1727973.200000003%2C646288.299999997%5D%2C%5B1727963.700000003%2C646291.099999994%5D%2C%5B1727954.099999994%2C646293.700000003%5D%2C%5B1727944.3991666734%2C646296%5D%2C%5B1727934.700000003%2C646298.200000003%5D%2C%5B1727925%2C646300%5D%2C%5B1727982.599999994%2C646423.200000003%5D%2C%5B1728133.7991666645%2C646400.799999997%5D%5D%5D%2C%22spatialReference%22%3A%7B%22wkid%22%3A2274%7D%7D%5D%7D&inSR=2274&distances=250&outSR=2274&bufferSR=2274"
-        print "test = " + urllib.url2pathname(test)
+#        test = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer?f=json&unit=9002&unionResults=false&geodesic=false&geometries=%7B%22geometryType%22%3A%22esriGeometryPolygon%22%2C%22geometries%22%3A%5B%7B%22rings%22%3A%5B%5B%5B1728133.7991666645%2C646400.799999997%5D%2C%5B1728123.2450000048%2C646380%5D%2C%5B1728079.400000006%2C646293.599999994%5D%2C%5B1728075.900000006%2C646287.5%5D%2C%5B1728071.400000006%2C646282%5D%2C%5B1728066.200000003%2C646277.200000003%5D%2C%5B1728060.400000006%2C646273.200000003%5D%2C%5B1728054%2C646270.200000003%5D%2C%5B1728047.200000003%2C646268.099999994%5D%2C%5B1728040.200000003%2C646267.099999994%5D%2C%5B1728033.099999994%2C646267.099999994%5D%2C%5B1728026.099999994%2C646268.299999997%5D%2C%5B1728019.4008333385%2C646270.400000006%5D%2C%5B1728010.2991666645%2C646274.400000006%5D%2C%5B1728001.200000003%2C646278.299999997%5D%2C%5B1727991.900000006%2C646281.799999997%5D%2C%5B1727982.599999994%2C646285.200000003%5D%2C%5B1727973.200000003%2C646288.299999997%5D%2C%5B1727963.700000003%2C646291.099999994%5D%2C%5B1727954.099999994%2C646293.700000003%5D%2C%5B1727944.3991666734%2C646296%5D%2C%5B1727934.700000003%2C646298.200000003%5D%2C%5B1727925%2C646300%5D%2C%5B1727982.599999994%2C646423.200000003%5D%2C%5B1728133.7991666645%2C646400.799999997%5D%5D%5D%2C%22spatialReference%22%3A%7B%22wkid%22%3A2274%7D%7D%5D%7D&inSR=2274&distances=250&outSR=2274&bufferSR=2274"
+#        print "test = " + urllib.url2pathname(test)
 
     #try:
         # get feature object based on parcel ID
@@ -81,7 +81,7 @@ def getParcelFeature(parcelID,distance):
         pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         params = {'where': "STANPAR='" + parcelID + "'", 'spatialRel' : 'esriSpatialRelIntersects', 'f':"json", 'outFields': "*", 'outSR': 2274, 'returnGeometry': True}
         r1 = requests.get(pageURL, params=params)
-        print "r1.url = " + repr(r1.url)
+#        print "r1.url = " + repr(r1.url)
 #        print "r1.text = " + repr(r1.text)
         feat = r1.json()
         if len(feat['features']) == 0:
@@ -91,7 +91,7 @@ def getParcelFeature(parcelID,distance):
             getGeoBuffer(feat['features'][0]['geometry'],distance)
             #print "testing"
 
-getParcelFeature("11714006400",250)      
+getParcelFeature("11714006400",1800)      
       
 def getAppraisal(propID,parcelID):
     try:
