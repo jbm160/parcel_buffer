@@ -41,14 +41,15 @@ def queryBuffer(buff):
         qparams['returnGeometry'] = True;
         qparams['outFields'] = json.dumps(["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP","LAND_USE","ACREAGE"])
         qparams['outSR'] = 2274
-        qparams['returnCountOnly'] = True
+        qparams['returnCountOnly'] = False
 #        print "qparams = " + repr(qparams)
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         r3 = requests.post(queryURL, data=qparams)
-#        features = r3.json()
+        print "r3.text = " + repr(r3.text)
+        features = r3.json()
+        print "number of features = " + len(features['features'])
 #        print "Number of parcels returned: " + r3.text
 #        print "r3.url = " + repr(r3.url)
-        print "r3.text = " + repr(r3.text)
 
 def getGeoBuffer(geom,dist):
         bparams = {}
@@ -63,7 +64,7 @@ def getGeoBuffer(geom,dist):
         bparams['outSR'] = 2274
         bparams['inSR'] = 2274
         bparams['f'] = "json"
-        print "bparams = " + json.dumps(bparams)
+#        print "bparams = " + json.dumps(bparams)
         buffURL = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer"
         r2 = requests.get(buffURL, params=bparams)
 #        print "r2.url = " + repr(r2.url)
@@ -91,7 +92,7 @@ def getParcelFeature(parcelID,distance):
             getGeoBuffer(feat['features'][0]['geometry'],distance)
             #print "testing"
 
-getParcelFeature("11714006400",1800)      
+getParcelFeature("11714006400",250)      
       
 def getAppraisal(propID,parcelID):
     try:
