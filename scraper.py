@@ -57,7 +57,7 @@ def queryBuffer(buff):
 def queryBufferById(buffId):
         qparams = {}
         qparams['f'] = "json"
-        qparams['where'] = "OBJECTID=" + buffId
+        qparams['where'] = "OBJECTID=" + repr(buffId)
         qparams['geometryType'] = "esriGeometryPolygon"
         qparams['geometry'] = json.dumps(buff)
         qparams['returnGeometry'] = False;
