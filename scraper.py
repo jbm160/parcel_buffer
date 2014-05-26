@@ -50,7 +50,7 @@ def queryBuffer(buff):
 def getGeoBuffer(geom,dist):
         bparams = {}
 #        bparams['geometries'] = {'geometryType': "esriGeometryPolygon", 'geometries': geom}
-        bparams['geometries'] = urllib.urlencode(geom)
+        bparams['geometries'] = geom
         bparams['distances'] = dist
         #bparams['unit'] = "UNIT_FOOT"
         bparams['unit'] = 9002
@@ -58,7 +58,7 @@ def getGeoBuffer(geom,dist):
         bparams['outSR'] = 2274
         bparams['inSR'] = 2274
         bparams['f'] = "json"
-        print "bparams = " + repr(bparams)
+        print "bparams = " + json.dumps(bparams)
         buffURL = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer"
         r2 = requests.post(buffURL, data=bparams)
         print "r2.url = " + repr(r2.url)
@@ -83,10 +83,8 @@ def getParcelFeature(parcelID,distance):
             print "No features were found"
         else:
 #            print "feat['features'][0]['geometry'] = " + repr(feat['features'][0]['geometry'])
-#            getGeoBuffer(feat['features'][0]['geometry'],distance)
-#        print r.text
-    #except:
-            print "testing"
+            getGeoBuffer(feat['features'][0]['geometry'],distance)
+            #print "testing"
 
 getParcelFeature("11714006400",250)      
       
