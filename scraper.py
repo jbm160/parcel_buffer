@@ -57,6 +57,7 @@ def getGeoBuffer(geom,dist):
         bparams['outSR'] = 2274
         bparams['inSR'] = 2274
         bparams['f'] = "json"
+        print "bparams = " + repr(bparams)
         buffURL = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer"
         r2 = requests.get(buffURL, params=bparams)
         print "r2.text = " + repr(r2.text)
