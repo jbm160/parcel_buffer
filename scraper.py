@@ -51,8 +51,8 @@ def queryBuffer(buff):
         print "number of features = " + repr(len(features['features']))
 #        print "Number of parcels returned: " + r3.text
 #        print "r3.url = " + repr(r3.url)
-#        for i in features['features']:
-            
+        for i in features['features']:
+            print repr(i['attributes'])
 
 def getGeoBuffer(geom,dist):
         bparams = {}
