@@ -149,7 +149,7 @@ def getParcelFeature(parcelID,distance):
             getGeoBuffer(feat['features'][0]['geometry'],distance)
             #print "testing"
 
-getParcelFeature("11714006400",300)      
+getParcelFeature("11714006400",1900)      
       
 def getAppraisal(propID,parcelID):
     try:
