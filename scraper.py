@@ -57,20 +57,21 @@ def queryBuffer(buff):
 def queryBufferById(buffId):
         qparams = {}
         qparams['f'] = "json"
-        qparams['where'] = "OBJECTID=" + repr(buffId)
+        qparams['where'] = "OBJECTID IN '" + json.dumps(buffId) "'"
         qparams['returnGeometry'] = False;
         qparams['outFields'] = "OBJECTID,STANPAR,OWNER,PROP_ADDR,PROP_CITY,PROP_ZIP,LAND_USE,ACREAGE"
         qparams['outSR'] = 2274
         qparams['returnCountOnly'] = False
 #        print "qparams = " + repr(qparams)
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
-        r3 = requests.post(queryURL, data=qparams)
+        print "buffId = " + json.dumps(buffId)
+#        r3 = requests.post(queryURL, data=qparams)
 #        print "r3.text = " + repr(r3.text)
-        features = r3.json()
+#        features = r3.json()
 #        print "Number of parcels returned: " + r3.text
 #        print "r3.url = " + repr(r3.url)
-        for i in features['features']:
-            scraperwiki.sqlite.save(unique_keys=["OBJECTID"],data=i['attributes'],table_name="properties")
+#        for i in features['features']:
+#            scraperwiki.sqlite.save(unique_keys=["OBJECTID"],data=i['attributes'],table_name="properties")
 
 def queryBufferCount(buff):
         qparams = {}
@@ -88,8 +89,15 @@ def queryBufferCount(buff):
 #        print "r3.text = " + repr(r3.text)
         features = r3.json()
         if len(features['objectIds']) > 500:
-            for i in features['objectIds']:
-                queryBufferById(i)
+            j = 0
+            while j < len(features['objectIds']):
+                buff = features['objectIds'][j:j+49]
+                print "Getting objectIds " + repr(j+1) + " thru " + repr(j+50) + "."
+                queryBufferById(buff)
+                j += 50
+            buff = features['objectIds'][j:features['objectIds']-1]
+            print "Getting objectIds " + repr(j+1) + " thru " + repr(len(features['objectIds'])) + "."
+            queryBufferById(buff)
             print repr(len(features['objectIds'])) + " features saved."
         else:
             queryBuffer(buff)
