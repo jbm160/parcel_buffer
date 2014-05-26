@@ -42,7 +42,7 @@ def queryBuffer(buff):
         qparams['returnCountOnly'] = True
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         r3 = requests.get(queryURL, params=qparams)
-        features = json.loads(r3)
+        features = json.loads(r3.text)
         print "Number of parcels returned: " + r
         
 
@@ -57,7 +57,7 @@ def getGeoBuffer(geom,dist):
         bparams['f'] = "json"
         buffURL = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer"
         r2 = requests.get(buffURL, params=bparams)
-        buff = json.loads(r2)
+        buff = json.loads(r2.text)
         queryBuffer(buff[0])
 
 def getParcelFeature(parcelID,distance):
@@ -67,7 +67,7 @@ def getParcelFeature(parcelID,distance):
         pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': spatialRef, 'returnGeometry': True}
         r1 = requests.get(pageURL, params=params)
-        feat = json.loads(r1)
+        feat = json.loads(r1.text)
         if len(feat['features']) == 0:
             print "No features were found"
         else:
