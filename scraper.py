@@ -54,6 +54,8 @@ def getGeoBuffer(geom,dist):
         bparams['distances'] = dist
         #bparams['unit'] = "UNIT_FOOT"
         bparams['unit'] = 9002
+        bparams['unionResults'] = False
+        bparams['geodesic'] = False
         bparams['bufferSR'] = 2274
         bparams['outSR'] = 2274
         bparams['inSR'] = 2274
@@ -74,7 +76,7 @@ def getParcelFeature(parcelID,distance):
         # get feature object based on parcel ID
         spatialRef = {"wkid":2274}
         pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
-        params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'outSR': 2274, 'returnGeometry': True}
+        params = {'where': "STANPAR='" + parcelID + "'", 'spatialRel' : 'esriSpatialRelIntersects', 'f':"json", 'outFields': "*", 'outSR': 2274, 'returnGeometry': True}
         r1 = requests.post(pageURL, data=params)
 #        print "r1.url = " + repr(r1.url)
 #        print "r1.text = " + repr(r1.text)
