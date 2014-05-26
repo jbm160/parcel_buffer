@@ -78,8 +78,8 @@ def getParcelFeature(parcelID,distance):
         spatialRef = {"wkid":2274}
         pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         params = {'where': "STANPAR='" + parcelID + "'", 'spatialRel' : 'esriSpatialRelIntersects', 'f':"json", 'outFields': "*", 'outSR': 2274, 'returnGeometry': True}
-        r1 = requests.post(pageURL, data=params)
-#        print "r1.url = " + repr(r1.url)
+        r1 = requests.get(pageURL, params=params)
+        print "r1.url = " + repr(r1.url)
 #        print "r1.text = " + repr(r1.text)
         feat = r1.json()
         if len(feat['features']) == 0:
