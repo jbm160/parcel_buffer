@@ -34,6 +34,7 @@ import requests
 
 
 def queryBuffer(buff):
+        qparams = {}
         qparams['f'] = "json"
         qparams['geometry'] = buff
         qparams['returnGeometry'] = True;
@@ -47,6 +48,7 @@ def queryBuffer(buff):
         
 
 def getGeoBuffer(geom,dist):
+        bparams = {}
         bparams['geometries'] = geom
         bparams['distances'] = dist
         #bparams['unit'] = "UNIT_FOOT"
