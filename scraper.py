@@ -36,10 +36,11 @@ import requests
 def queryBuffer(buff):
         qparams = {}
         qparams['f'] = "json"
+        qparams['where'] = ""
         qparams['geometryType'] = "esriGeometryPolygon"
         qparams['geometry'] = json.dumps(buff)
-        qparams['returnGeometry'] = True;
-        qparams['outFields'] = json.dumps(["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP","LAND_USE","ACREAGE"])
+        qparams['returnGeometry'] = False;
+        qparams['outFields'] = "OBJECTID,STANPAR,OWNER,PROP_ADDR,PROP_CITY,PROP_ZIP,LAND_USE,ACREAGE"
         qparams['outSR'] = 2274
         qparams['returnCountOnly'] = False
 #        print "qparams = " + repr(qparams)
@@ -50,6 +51,8 @@ def queryBuffer(buff):
         print "number of features = " + repr(len(features['features']))
 #        print "Number of parcels returned: " + r3.text
 #        print "r3.url = " + repr(r3.url)
+        for i in features['features']:
+            
 
 def getGeoBuffer(geom,dist):
         bparams = {}
