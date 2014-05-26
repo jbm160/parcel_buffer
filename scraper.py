@@ -71,7 +71,7 @@ def getParcelFeature(parcelID,distance):
         # get feature object based on parcel ID
         spatialRef = {"wkid":2274}
         pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
-        params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': spatialRef, 'returnGeometry': True}
+        params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'outSR': 2274, 'returnGeometry': True}
         r1 = requests.post(pageURL, data=params)
 #        print "r1.url = " + repr(r1.url)
         print "r1.text = " + repr(r1.text)
