@@ -86,8 +86,7 @@ def getParcelFeature(parcelID,distance):
 #            getGeoBuffer(feat['features'][0]['geometry'],distance)
 #        print r.text
     #except:
-#        print "error occurred"
-
+        print "testing"
 
 getParcelFeature("11714006400",250)      
       
