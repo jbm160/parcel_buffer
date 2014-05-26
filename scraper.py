@@ -41,8 +41,9 @@ def queryBuffer(buff):
         qparams['outFields'] = json.dumps(["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP","LAND_USE","ACREAGE"])
         qparams['outSR'] = 2274
         qparams['returnCountOnly'] = True
+        print "qparams = " + qparams.items()
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
-        r3 = requests.get(queryURL, params=qparams)
+        r3 = requests.post(queryURL, data=qparams)
 #        features = r3.json()
 #        print "Number of parcels returned: " + r3.text
         print "r3.url = " + repr(r3.url)
