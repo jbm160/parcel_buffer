@@ -29,7 +29,7 @@ import json
 import re
 import resource
 import xlrd
-import cookielib, urllib2
+import cookielib, urllib2, urllib
 import requests
 
 
@@ -38,22 +38,22 @@ def queryBuffer(buff):
         qparams['f'] = "json"
         qparams['geometry'] = buff
         qparams['returnGeometry'] = True;
-        qparams['outFields'] = ["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP"]
+        qparams['outFields'] = ["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP","LAND_USE","ACREAGE"]
         qparams['outSR'] = 2274
         qparams['returnCountOnly'] = True
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         r3 = requests.get(queryURL, params=qparams)
-        features = json.loads(r3.text)
-        print "Number of parcels returned: " + r
+        features = r3.json()
+        print "Number of parcels returned: " + r3.text
         
 
 def getGeoBuffer(geom,dist):
         bparams = {}
 #        bparams['geometries'] = {'geometryType': "esriGeometryPolygon", 'geometries': geom}
-        bparams['geometries'] = geom
+        bparams['geometries'] = urlencode(geom)
         bparams['distances'] = dist
-        bparams['unit'] = "UNIT_FOOT"
-        #bparams['unit'] = 9002
+        #bparams['unit'] = "UNIT_FOOT"
+        bparams['unit'] = 9002
         bparams['bufferSR'] = 2274
         bparams['outSR'] = 2274
         bparams['inSR'] = 2274
@@ -74,7 +74,7 @@ def getParcelFeature(parcelID,distance):
         params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'outSR': 2274, 'returnGeometry': True}
         r1 = requests.post(pageURL, data=params)
 #        print "r1.url = " + repr(r1.url)
-        print "r1.text = " + repr(r1.text)
+#        print "r1.text = " + repr(r1.text)
         feat = r1.json()
         if len(feat['features']) == 0:
             print "No features were found"
