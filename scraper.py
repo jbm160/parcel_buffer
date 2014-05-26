@@ -90,7 +90,7 @@ def queryBufferCount(buff):
         if len(features['objectIds']) > 500:
             for i in features['objectIds']:
                 queryBufferById(i)
-            print len(features['objectIds']) + " features saved."
+            print repr(len(features['objectIds'])) + " features saved."
         else:
             queryBuffer(buff)
                 
