@@ -49,7 +49,8 @@ def queryBuffer(buff):
 
 def getGeoBuffer(geom,dist):
         bparams = {}
-        bparams['geometries'] = {'geometryType': "esriGeometryPolygon", 'geometries': geom}
+#        bparams['geometries'] = {'geometryType': "esriGeometryPolygon", 'geometries': geom}
+        bparams['geometries'] = geom
         bparams['distances'] = dist
         #bparams['unit'] = "UNIT_FOOT"
         bparams['unit'] = 9002
