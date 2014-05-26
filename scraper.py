@@ -43,7 +43,7 @@ def queryBuffer(buff):
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         r = requests.get(queryURL, params=qparams)
         features = json.loads(r)
-        alert("Number of parcels returned: " + r)
+        print "Number of parcels returned: " + r
         
 
 def getGeoBuffer(geom,dist):
