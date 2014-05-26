@@ -75,7 +75,7 @@ def getParcelFeature(parcelID,distance):
         if len(feat['features']) == 0:
             print "No features were found"
         else:
-            print "feat['features'][0]['geometry'] = " + repr(feat['features'][0]['geometry'])
+#            print "feat['features'][0]['geometry'] = " + repr(feat['features'][0]['geometry'])
             getGeoBuffer(feat['features'][0]['geometry'],distance)
 #        print r.text
     #except:
