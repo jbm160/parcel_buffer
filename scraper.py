@@ -73,7 +73,6 @@ def queryBufferById(buffId):
 #        print "r3.url = " + repr(r3.url)
         for i in features['features']:
             scraperwiki.sqlite.save(unique_keys=["OBJECTID"],data=i['attributes'],table_name="properties")
-        print repr(len(features['features'])) + " features saved."
 
 def queryBufferCount(buff):
         qparams = {}
@@ -88,8 +87,15 @@ def queryBufferCount(buff):
 #        print "qparams = " + repr(qparams)
         queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
         r3 = requests.post(queryURL, data=qparams)
-        print "r3.text = " + repr(r3.text)
+#        print "r3.text = " + repr(r3.text)
         features = r3.json()
+        if len(features['objectIds']) > 500:
+            for i in features['objectIds']:
+                queryBufferById(i)
+            print len(features['objectIds']) + " features saved."
+        else:
+            queryBuffer(buff)
+                
 #        print "number of features = " + repr(len(features['features']))
 #        return len(features['features'])
 #        print "number of features = " + repr(len(features['features']))
