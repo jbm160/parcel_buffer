@@ -52,8 +52,8 @@ def getGeoBuffer(geom,dist):
 #        bparams['geometries'] = {'geometryType': "esriGeometryPolygon", 'geometries': geom}
         bparams['geometries'] = geom
         bparams['distances'] = dist
-        #bparams['unit'] = "UNIT_FOOT"
-        bparams['unit'] = 9002
+        bparams['unit'] = "UNIT_FOOT"
+        #bparams['unit'] = 9002
         bparams['bufferSR'] = 2274
         bparams['outSR'] = 2274
         bparams['inSR'] = 2274
