@@ -32,17 +32,52 @@ import xlrd
 import cookielib, urllib2
 import requests
 
-def getBufferParcels(parcelID,distance):
+
+def queryBuffer(buff):
+        qparams['f'] = "json"
+        qparams['geometry'] = buff
+        qparams['returnGeometry'] = True;
+        qparams['outFields'] = ["OBJECTID","STANPAR","OWNER","MAIL_ADDR","MAIL_CITY","MAIL_STATE","MAIL_ZIP","PROP_ADDR","PROP_CITY","PROP_ZIP"]
+        qparams['outSR'] = 2274
+        qparams['returnCountOnly'] = True
+        queryURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
+        r = requests.get(queryURL, params=qparams)
+        features = json.loads(r)
+        alert("Number of parcels returned: " + r)
+        
+
+def getGeoBuffer(geom,dist):
+        bparams['geometries'] = geom
+        bparams['distances'] = dist
+        #bparams['unit'] = "UNIT_FOOT"
+        bparams['unit'] = 9002
+        bparams['bufferSR'] = 2274
+        bparams['outSR'] = 2274
+        bparams['inSR'] = 2274
+        bparams['f'] = "json"
+        buffURL = "http://maps.nashville.gov/MetGIS/rest/services/Geometry/GeometryServer/buffer"
+        r = requests.get(buffURL, params=bparams)
+        buff = json.loads(r)
+        queryBuffer(buff[0])
+
+def getParcelFeature(parcelID,distance):
     #try:
         # get feature object based on parcel ID
+        spatialRef = {"wkid":2274}
         pageURL = "http://maps.nashville.gov/MetGIS/rest/services/Basemaps/Parcels/MapServer/0/query"
-        params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': {"wkid" : 2274}, 'returnGeometry': True}
+        params = {'where': "STANPAR='" + parcelID + "'", 'f':"json", 'outFields': "*", 'spatialReference': spatialRef, 'returnGeometry': True}
         r = requests.get(pageURL, params=params)
-        print r.text
+        feat = json.loads(r)
+        if len(feat[features]) == 0
+            print "No features were found"
+        else
+            getGeoBuffer(feat[features][0]['geometry'],distance)
+#        print r.text
     #except:
-        print "error occurred"
+#        print "error occurred"
 
-getBufferParcels("11714006400",250)      
+
+getParcelFeature("11714006400",250)      
       
 def getAppraisal(propID,parcelID):
     try:
