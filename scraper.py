@@ -57,7 +57,7 @@ def queryBuffer(buff):
 def queryBufferById(buffId):
         qparams = {}
         qparams['f'] = "json"
-        qparams['where'] = "OBJECTID IN '" + json.dumps(buffId) "'"
+        qparams['where'] = "OBJECTID IN '" + json.dumps(buffId) + "'"
         qparams['returnGeometry'] = False;
         qparams['outFields'] = "OBJECTID,STANPAR,OWNER,PROP_ADDR,PROP_CITY,PROP_ZIP,LAND_USE,ACREAGE"
         qparams['outSR'] = 2274
