@@ -47,7 +47,7 @@ def queryBuffer(buff):
         r3 = requests.post(queryURL, data=qparams)
         print "r3.text = " + repr(r3.text)
         features = r3.json()
-        print "number of features = " + len(features['features'])
+        print "number of features = " + repr(len(features['features']))
 #        print "Number of parcels returned: " + r3.text
 #        print "r3.url = " + repr(r3.url)
 
